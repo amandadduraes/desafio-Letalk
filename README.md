@@ -198,4 +198,6 @@ Estimativa: **4 a 6 horas** para implementação inicial, refinando UX, API e do
 
 ## Link Do Frontend Para Testes
 
-Ainda não publicado. Após o deploy, substitua esta seção pela URL gerada pela Vercel.
+Frontend publicado na Vercel:
+
+https://desafio-letalk-topaz.vercel.app/
