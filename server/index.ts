@@ -7,20 +7,13 @@ import { z } from "zod";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { formatCnpj, isValidCnpj } from "./cnpj.js";
-import { enrichLead, ServiceError } from "./enrichment.js";
+import { ServiceError } from "./enrichment.js";
+import { enrichLeadFromRequest } from "./lead.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
 const port = Number(process.env.PORT ?? 3001);
-
-const leadSchema = z.object({
-  name: z.string().trim().min(2, "Informe o nome do contato."),
-  email: z.string().trim().email("Informe um e-mail válido."),
-  phone: z.string().trim().min(8, "Informe um telefone válido."),
-  cnpj: z.string().trim().min(14, "Informe um CNPJ válido.")
-});
 
 app.use(cors());
 app.use(express.json());
@@ -31,19 +24,7 @@ app.get("/api/health", (_request, response) => {
 
 app.post("/api/lead/enrich", async (request, response, next) => {
   try {
-    const payload = leadSchema.parse(request.body);
-
-    if (!isValidCnpj(payload.cnpj)) {
-      return response.status(400).json({
-        message: "CNPJ inválido. Revise o número informado.",
-        field: "cnpj"
-      });
-    }
-
-    const result = await enrichLead({
-      ...payload,
-      cnpj: formatCnpj(payload.cnpj)
-    });
+    const result = await enrichLeadFromRequest(request.body);
 
     return response.json(result);
   } catch (error) {

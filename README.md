@@ -142,6 +142,34 @@ npm run build
 npm start
 ```
 
+## Como Publicar Na Vercel
+
+O projeto já está preparado para deploy na Vercel. A pasta `api/` contém as funções serverless consumidas pelo frontend, e a pasta `dist` é gerada pelo build do Vite.
+
+Passos:
+
+1. Acesse [vercel.com](https://vercel.com) e conecte sua conta do GitHub.
+2. Clique em **Add New Project**.
+3. Importe o repositório `amandadduraes/desafio-Letalk`.
+4. Mantenha as configurações padrão detectadas pela Vercel:
+
+```text
+Framework Preset: Vite
+Build Command: npm run build
+Output Directory: dist
+Install Command: npm install
+```
+
+5. Em variáveis de ambiente, adicione apenas se quiser sobrescrever o padrão:
+
+```env
+BRASIL_API_BASE_URL=https://brasilapi.com.br/api/cnpj/v1
+```
+
+6. Clique em **Deploy**.
+
+Depois do deploy, o frontend ficará disponível na URL gerada pela Vercel e continuará consumindo o endpoint relativo `POST /api/lead/enrich`.
+
 ## Como A IA Ajudou Na Construção
 
 Usei IA como apoio para acelerar o scaffolding inicial do projeto, revisar a modelagem da resposta da API, refinar a organização visual dos dados e ajudar na redação do README.
@@ -170,4 +198,4 @@ Estimativa: **4 a 6 horas** para implementação inicial, refinando UX, API e do
 
 ## Link Do Frontend Para Testes
 
-Não publicado neste ambiente. O projeto está pronto para rodar localmente e pode ser publicado em plataformas como Render, Railway ou Vercel.
+Ainda não publicado. Após o deploy, substitua esta seção pela URL gerada pela Vercel.
